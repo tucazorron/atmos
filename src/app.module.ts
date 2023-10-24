@@ -1,19 +1,17 @@
-import { GraphQLModule } from '@nestjs/graphql';
-import {
-  DeviceDataResolver,
-  EquipmentInfoResolver,
-  MetricsResolver,
-  AppResolver,
-} from './graphql.schema';
 import { Module } from '@nestjs/common';
+import { EquipmentsModule } from './equipments/equipments.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot({
-      autoSchemaFile: 'schema.gql',
-      resolvers: [AppResolver],
+    EquipmentsModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: 'src/schema.gql',
     }),
+    MongooseModule.forRoot('mongodb://localhost:27017/nest'),
   ],
-  providers: [DeviceDataResolver, EquipmentInfoResolver, MetricsResolver],
 })
 export class AppModule {}
