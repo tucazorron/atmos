@@ -1,17 +1,13 @@
 import { Module } from '@nestjs/common';
-import { EquipmentsModule } from './equipments/equipments.module';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TelemetryModule } from './modules/telemetry.module';
+import { MongooseConfigModule } from './modules/mongoose.module';
+import { GraphqlModule } from './modules/graphql.module';
 
 @Module({
   imports: [
-    EquipmentsModule,
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      autoSchemaFile: 'src/schema.gql',
-    }),
-    MongooseModule.forRoot('mongodb://localhost:27017/nest'),
+    TelemetryModule,
+    GraphqlModule,
+    MongooseConfigModule,
   ],
 })
 export class AppModule {}
