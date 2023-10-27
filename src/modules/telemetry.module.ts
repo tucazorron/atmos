@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { TelemetryService } from 'src/services/telemetry.service';
-import { TelemetryResolver } from 'src/resolvers/telemetry.resolver';
-import { TelemetrySchema } from 'src/schemas/telemetry.schema';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Telemetry } from 'src/entities/telemetry.entity';
+import { TelemetryController } from 'src/controllers/temperature.controller';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: 'Equipment', schema: TelemetrySchema }]),
-  ],
-  providers: [TelemetryService, TelemetryResolver],
+  imports: [TypeOrmModule.forFeature([Telemetry])],
+  controllers: [TelemetryController],
+  providers: [TelemetryService],
 })
 export class TelemetryModule {}

@@ -1,13 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TelemetryModule } from './modules/telemetry.module';
-import { MongooseConfigModule } from './modules/mongoose.module';
-import { GraphqlModule } from './modules/graphql.module';
+import { DatabaseModule } from './modules/database.module';
+import { MqttModule } from './modules/mqtt.module';
 
 @Module({
-  imports: [
-    TelemetryModule,
-    GraphqlModule,
-    MongooseConfigModule,
-  ],
+  imports: [DatabaseModule, MqttModule, TelemetryModule],
 })
 export class AppModule {}
